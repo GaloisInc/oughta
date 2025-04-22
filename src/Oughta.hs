@@ -1,22 +1,28 @@
--- | See the package README for a high-level description.
+-- | See the package [README] for a high-level description.
+--
+-- [README]: https://github.com/GaloisInc/oughta/blob/main/README.md
 module Oughta
-  ( OE.LuaProgram
+  ( -- * Running checks
+    Output(..)
+  , check
+  , check'
+    -- * Loading Lua programs
+  , OE.LuaProgram
   , OE.addPrefix
   , OE.plainLuaProgram
   , OE.fromLines
   , OE.fromLineComments
-  , Output(..)
-  , Loc(..)
-  , Pos(..)
-  , OP.Span(..)
-  , check
-  , check'
+    -- * Interpreting results
   , OR.Failure(..)
   , OR.Progress(..)
   , OR.Success(..)
   , OR.Result(..)
   , OR.resultNull
   , OR.printResult
+    -- ** Source locations
+  , Loc(..)
+  , Pos(..)
+  , OP.Span(..)
   ) where
 
 import Control.Exception qualified as X
