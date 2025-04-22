@@ -247,3 +247,13 @@ Oughta conforms to the [Haskell Package Versioning Policy][pvp]. Both the Lua
 and Haskell APIs are considered to be part of the public interface.
 
 [pvp]: https://pvp.haskell.org/
+
+## GHC support policy
+
+We support at least three versions of GHC at a time. We are not aggressive about
+dropping older versions, but will generally do so for versions outside of the
+support window if either (1) maintaining that support would require significant
+effort, such as significant numbers of C pre-processor `ifdef` sections or Cabal
+`if` sections, or (2) the codebase could benefit significantly from features
+that are only available on more recent versions of GHC. We try to support new
+versions as soon as they are supported by the libraries that we depend on.
