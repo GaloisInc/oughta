@@ -1,6 +1,4 @@
--- | See the package [README] for a high-level description.
---
--- [README]: https://github.com/GaloisInc/oughta/blob/main/README.md
+-- | See the package [README](https://github.com/GaloisInc/oughta/blob/main/README.md) for a high-level description.
 module Oughta
   ( -- * Running checks
     Output(..)
