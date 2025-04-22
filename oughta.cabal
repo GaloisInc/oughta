@@ -1,4 +1,4 @@
-cabal-version: 2.4
+cabal-version: 3.0
 name: oughta
 version: 0.1.1.0
 author: Galois, Inc.
@@ -26,7 +26,7 @@ source-repository head
 
 common shared
   default-language: GHC2021
-  build-depends: base >= 4.17 && < 5
+  build-depends: base ^>= { 4.17, 4.18, 4.19, 4.20, 4.21 },
 
   -- Specifying -Wall and -Werror can cause the project to fail to build on
   -- newer versions of GHC simply due to new warnings being added to -Wall. To
@@ -135,10 +135,10 @@ library
   build-depends:
     bytestring,
     containers,
-    exceptions >= 0.10 && < 0.11,
-    file-embed >= 0.0.16 && < 0.1,
-    hslua >= 2.3 && < 2.4,
-    text,
+    exceptions ^>= 0.10,
+    file-embed ^>= 0.0.16,
+    hslua ^>= 2.3,
+    text ^>= { 2, 2.1 },
 
   exposed-modules:
     Oughta
