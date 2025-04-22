@@ -3,7 +3,7 @@ name: Documentation
 on:
   push:
     branches:
-    - master
+    - main
 
 concurrency:
   # Only run one of these at a time because they update the global GitHub Pages.
@@ -58,7 +58,7 @@ jobs:
       shell: bash
     - name: Upload artifact with haddocks to GitHub Pages
       uses: actions/upload-pages-artifact@v3
-      if: github.ref == 'refs/heads/master' &&
+      if: github.ref == 'refs/heads/main' &&
           github.event.pull_request.head.repo.fork == false &&
           github.repository_owner == 'GaloisInc'
       with:
@@ -66,6 +66,6 @@ jobs:
     - name: Deploy haddocks to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
-      if: github.ref == 'refs/heads/master' &&
+      if: github.ref == 'refs/heads/main' &&
           github.event.pull_request.head.repo.fork == false &&
           github.repository_owner == 'GaloisInc'
