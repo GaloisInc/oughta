@@ -1,14 +1,7 @@
 # Oughta
 
-## Overview
-
 Oughta is a Haskell library for testing programs that output text. The testing
 paradigm essentially combines golden testing with `grep`.
-
-Oughta draws inspiration from LLVM's [FileCheck] and Rust's [compiletest].
-
-[FileCheck]: https://llvm.org/docs/CommandGuide/FileCheck.html
-[compiletest]: https://rustc-dev-guide.rust-lang.org/tests/compiletest.html
 
 More precisely, Oughta provides a DSL to build *recognizers* (i.e., parsers that
 simply accept or reject an string). The inputs to Oughta are a string (usually,
@@ -27,6 +20,11 @@ DSL program:
 check "Hello"
 check "world"
 ```
+
+Oughta draws inspiration from LLVM's [FileCheck] and Rust's [compiletest].
+
+[FileCheck]: https://llvm.org/docs/CommandGuide/FileCheck.html
+[compiletest]: https://rustc-dev-guide.rust-lang.org/tests/compiletest.html
 
 ## Example
 
