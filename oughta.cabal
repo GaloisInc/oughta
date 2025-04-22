@@ -13,6 +13,7 @@ description:
   See the README for details.
 extra-doc-files:
   README.md
+  CHANGELOG.md
 extra-source-files:
   src/Oughta/oughta.lua
   test-data/**/*.txt
