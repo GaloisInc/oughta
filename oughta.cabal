@@ -15,16 +15,17 @@ extra-doc-files:
   README.md
 extra-source-files:
   src/Oughta/oughta.lua
+  test-data/**/*.txt
+  test/test.lua
 category: Testing
 
 source-repository head
   type: git
-  location: https://github.com/GaloisInc/grease
-  subdir: oughta
+  location: https://github.com/GaloisInc/oughta
 
 common shared
   default-language: GHC2021
-  build-depends: base >= 4.17 && < 4.20
+  build-depends: base >= 4.17 && < 5
 
   -- Specifying -Wall and -Werror can cause the project to fail to build on
   -- newer versions of GHC simply due to new warnings being added to -Wall. To
@@ -40,11 +41,10 @@ common shared
   -- available here:
   -- https://ghc.gitlab.haskell.org/ghc/doc/users_guide/using-warnings.html
 
-  -- Since GHC 9.4 or earlier:
+  -- Since GHC 9.6 or earlier:
   ghc-options:
     -Wall
     -Werror=ambiguous-fields
-    -Werror=compat-unqualified-imports
     -Werror=deferred-type-errors
     -Werror=deprecated-flags
     -Werror=deprecations
@@ -105,22 +105,26 @@ common shared
     ghc-options:
       -Werror=forall-identifier
 
+  if impl(ghc < 9.12)
+    ghc-options:
+      -Werror=compat-unqualified-imports
+
   if impl(ghc >= 9.8)
     ghc-options:
       -Werror=incomplete-export-warnings
       -Werror=inconsistent-flags
       -Werror=missing-poly-kind-signatures
 
-  -- TODO(#44): Enable these warnings when supporting these GHC versions.
-  --
-  -- if impl(ghc >= 9.10)
-  --   -Werror=badly-staged-types
-  --   -Werror=data-kinds-tc
-  --   -Werror=deprecated-type-abstractions
-  --   -Werror=incomplete-record-selectors
+  if impl(ghc >= 9.10)
+    ghc-options:
+      -Werror=badly-staged-types
+      -Werror=data-kinds-tc
+      -Werror=deprecated-type-abstractions
+      -Werror=incomplete-record-selectors
 
-  -- if impl(ghc >= 9.12)
-  --   -Werror=view-pattern-signatures
+  if impl(ghc >= 9.12)
+    ghc-options:
+      -Werror=view-pattern-signatures
 
 library
   import: shared
