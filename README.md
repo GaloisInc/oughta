@@ -51,8 +51,8 @@ import Control.Monad (filterM, forM)
 import Data.ByteString qualified as BS
 import Oughta qualified
 import System.Directory qualified as Dir
-import Test.Tasty.HUnit qualified as TTH
 import Test.Tasty qualified as TT
+import Test.Tasty.HUnit qualified as TTH
 
 -- Code under test:
 -- runScript :: ByteString -> (ByteString, ByteString)
@@ -65,8 +65,7 @@ test sh = do
   (stdout, _stderr) <- runScript content
   let comment = "# "  -- shell script start-of-line comment
   let prog = Oughta.fromLineComments sh comment content
-  result <- Oughta.check prog (Oughta.Output stdout)
-  TTH.assertBool (sh ++ " contained some assertions") (not (Oughta.resultNull result))
+  Oughta.check' prog (Oughta.Output stdout)
 
 main :: IO ()
 main = do
@@ -90,15 +89,11 @@ test sh = do
   -- snip --
   let stdoutComment = "# STDOUT: "
   let prog = Oughta.fromLineComments sh stdoutComment content
-  stdoutResult <- Oughta.check prog (Oughta.Output stdout)
+  Oughta.check' prog (Oughta.Output stdout)
 
   let stderrComment = "# STDERR: "
   let prog' = Oughta.fromLineComments sh stderrComment content
-  stderrResult <- Oughta.check prog' (Oughta.Output stderr)
-
-  TTH.assertBool
-    (sh ++ " contained some assertions")
-    (not (Oughta.resultNull stdoutResult && Oughta.resultNull stderrResult))
+  Oughta.check' prog' (Oughta.Output stderr)
 ```
 
 Test cases would then look like so:
