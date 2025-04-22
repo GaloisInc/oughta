@@ -240,3 +240,10 @@ There are a variety of reasons:
 1. Ease of adoption: external runtime test dependencies are painful
 2. Speed: use as a library avoids file I/O, spawning shells, etc.
 3. Flexibility: FileCheck can be used on tools without command-line interfaces
+
+## Versioning policy
+
+Oughta conforms to the [Haskell Package Versioning Policy][pvp]. Both the Lua
+and Haskell APIs are considered to be part of the public interface.
+
+[pvp]: https://pvp.haskell.org/
