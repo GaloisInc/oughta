@@ -136,7 +136,7 @@ library
     bytestring,
     containers,
     exceptions ^>= 0.10,
-    file-embed ^>= 0.0.16,
+    file-embed ^>= 0.0.15,
     hslua ^>= 2.3,
     text ^>= { 2, 2.1 },
 
