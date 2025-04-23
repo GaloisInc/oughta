@@ -9,7 +9,7 @@ jobs:
       matrix:
         cache-key-prefix: [""]  # see `include` below
         configure-flags: [""]  # see `include` below
-        ghc: [9.4.7, 9.6.7, 9.8.4, 9.10.1, 9.12.2]
+        ghc: [9.4.8, 9.6.7, 9.8.4, 9.10.1, 9.12.2]
         haddock: [true]  # see `include` below
         os: [ubuntu-24.04]
         pre-hook: [""]  # see `include` below
@@ -19,7 +19,7 @@ jobs:
         # lower bounds in the Cabal `build-depends`.
         - cache-key-prefix: prefer-oldest
           configure-flags: --prefer-oldest
-          ghc: 9.4.7
+          ghc: 9.4.8
           haddock: false
           os: ubuntu-24.04
         # Include a single build (with latest Linux OS and latest GHC version)
@@ -43,6 +43,23 @@ jobs:
             chmod +x /usr/local/bin/cabal-force-upper-bound
             echo 'packages: .' > cabal.project
             cabal-force-upper-bound --cabal-project *.cabal >> cabal.project
+        # Include a build (with latest Linux OS) against Stackage LTS package
+        # sets for each supported version of GHC that has one to verify that we
+        # support building against these widely-used package sets.
+        - cache-key-prefix: stackage
+          ghc: 9.8.4
+          haddock: false
+          os: ubuntu-24.04
+          pre-hook: |
+            echo 'packages: .' > cabal.project
+            echo 'import: https://www.stackage.org/lts-23.19/cabal.config' >> cabal.project
+        - cache-key-prefix: stackage
+          ghc: 9.4.8
+          haddock: false
+          os: ubuntu-24.04
+          pre-hook: |
+            echo 'packages: .' > cabal.project
+            echo 'import: https://www.stackage.org/lts-21.25/cabal.config' >> cabal.project
       fail-fast: false
     uses: GaloisInc/.github/.github/workflows/haskell-ci.yml@v1
     with:
