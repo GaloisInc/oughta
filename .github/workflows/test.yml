@@ -9,9 +9,9 @@ jobs:
       matrix:
         cache-key-prefix: [""]  # see `include` below
         configure-flags: [""]  # see `include` below
-        os: [ubuntu-24.04]
         ghc: [9.4.7, 9.6.7, 9.8.4, 9.10.1, 9.12.2]
         haddock: [true]  # see `include` below
+        os: [ubuntu-24.04]
         include:
         # Include a single build (with latest Linux OS and oldest GHC version)
         # using `--prefer-oldest` to verify that we still build against the
