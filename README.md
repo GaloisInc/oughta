@@ -21,8 +21,11 @@ check "Hello"
 check "world"
 ```
 
-Oughta draws inspiration from LLVM's [FileCheck] and Rust's [compiletest].
+Oughta draws inspiration from [DejaGNU] (which is used to test [GCC]), LLVM's
+[FileCheck], and Rust's [compiletest].
 
+[DejaGNU]: https://www.gnu.org/software/dejagnu/
+[GCC]: https://gcc.gnu.org/
 [FileCheck]: https://llvm.org/docs/CommandGuide/FileCheck.html
 [compiletest]: https://rustc-dev-guide.rust-lang.org/tests/compiletest.html
 
