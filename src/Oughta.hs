@@ -21,12 +21,16 @@ module Oughta
   , Loc(..)
   , Pos(..)
   , OP.Span(..)
+    -- * Hooks
+  , OH.Hooks(..)
+  , OH.defaultHooks
   ) where
 
 import Control.Exception qualified as X
 import Data.ByteString (ByteString)
 import Oughta.Extract (LuaProgram)
 import Oughta.Extract qualified as OE
+import Oughta.Hooks qualified as OH
 import Oughta.LuaApi qualified as FCLA
 import Oughta.Pos (Loc(..), Pos(..))
 import Oughta.Pos qualified as OP
@@ -39,19 +43,21 @@ newtype Output = Output ByteString
 
 -- | Check some program output against a Oughta Lua program.
 check ::
+  OH.Hooks ->
   LuaProgram ->
   Output ->
   IO OR.Result
-check prog (Output out) = FCLA.check prog out
+check hooks prog (Output out) = FCLA.check hooks prog out
 
 -- | Like 'check', but throws an exception on failure.
 check' ::
   HasCallStack =>
+  OH.Hooks ->
   LuaProgram ->
   Output ->
   IO ()
-check' prog out = do
-  OR.Result r <- check prog out
+check' hooks prog out = do
+  OR.Result r <- check hooks prog out
   case r of
     Left f -> X.throwIO f
     Right {} -> pure ()

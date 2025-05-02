@@ -145,6 +145,7 @@ library
   other-modules:
     Oughta.Exception
     Oughta.Extract
+    Oughta.Hooks
     Oughta.Lua
     Oughta.LuaApi
     Oughta.Pos

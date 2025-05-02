@@ -51,14 +51,14 @@ test file = do
 
   let prog0 = Ota.fromLineComments file comment content
   let prog = Ota.addPrefix (Text.decodeUtf8Lenient prelude) prog0
-  result <- Ota.check prog (clearComments content)
+  result <- Ota.check Ota.defaultHooks prog (clearComments content)
   TTH.assertBool file (not (Ota.resultNull result))
 
   let prog0' = Ota.fromLineComments file comment' content
   let prog' = Ota.addPrefix (Text.decodeUtf8Lenient prelude) prog0'
   let output'@(Ota.Output out) = clearComments (Ota.printResult result)
   BS.writeFile (FilePath.replaceExtension file "out") out
-  Ota.check' prog' output'
+  Ota.check' Ota.defaultHooks prog' output'
 
 discover :: FilePath -> IO [TT.TestTree]
 discover dir = do
