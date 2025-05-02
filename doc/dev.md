@@ -33,3 +33,42 @@ When performing such an upgrade, it can be helpful to copy/paste this list into 
 - [ ] Remove outdated `if` stanzas in the Cabal file
 - [ ] Bump the [lower bound on `base`][base] in the Cabal `build-depends`
 
+## Release process
+
+First, choose a new four-component version number in accordance with the
+[policy]. Then, create a release branch:
+
+[policy]: ../README.md#versioning-policy
+
+```sh
+git checkout main
+git pull origin main
+git checkout -b release-X.Y.Z.W
+```
+
+Then:
+
+- [ ] Run `cabal outdated` and bump dependencies if need be
+- [ ] In the release commit:
+  - [ ] Bump the `version:` in the Cabal file to the new version
+  - [ ] Bump the version number in the `build-depends` of the test suite
+  - [ ] Update `CHANGELOG.md`
+  - [ ] Run `cabal {build,check,test,haddock}`
+  - [ ] Commit with message `Prepare release of vX.Y.Z.W`
+- [ ] Add `.1` to create a five-component development version number
+- [ ] In another commit:
+  - [ ] Bump the `version:` in the Cabal file to the new dev version
+  - [ ] Bump the version number in the `build-depends` of the test suite
+  - [ ] Add a `# next` header to `CHANGELOG.md`
+  - [ ] Commit with message `Create development version vX.Y.Z.W.1`
+
+Push the branch, wait for review, and merge. Then pull, check out the release
+commit, tag it, and push the tag:
+
+```sh
+git checkout main
+git pull origin main
+git checkout HEAD~1
+git tag --annotate vX.Y.Z.W --message vX.Y.Z.W
+git push origin vX.Y.Z.W
+```
