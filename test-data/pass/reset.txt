@@ -1,0 +1,4 @@
+# reset("<out>", "bar")
+# check "bar"
+foo
+; match_on_line(1)

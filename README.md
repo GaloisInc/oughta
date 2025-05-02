@@ -196,11 +196,13 @@ code; such updates will be ignored by Oughta.
 Checking functions:
 
 - `check(s: String)`: Find `s` in `text`. Seek to after the end of `s`. Like
-  LLVM FileCheck's `CHECK`.
+  LLVM FileCheck's `CHECK`, or [Expect's][expect] `expect`.
 - `checkln(s: String)`: `checkln(s)` is equivalent to `check(s .. "\n")`.
 - `here(s: String)`: Check that `text` beings with `s`. Seek to after the end
   of `s`.
 - `hereln(String)`: `hereln(s)` is equivalent to `here(s .. "\n")`.
+
+[expect]: https://core.tcl-lang.org/expect/index
 
 Other utilities:
 
@@ -215,6 +217,9 @@ Other utilities:
 - `fail()`: Fail to match at this point in `text`.
 - `match(n: Integer)`: Consume `n` bytes of `text`, treating them as a match.
 - `seek(n: Integer)`: Seek forward `n` bytes in `text`.
+- `reset(name: String, s: String)`: Set `text` to `s` and reset the program
+  state (e.g., location tracking). Treat `name` as the file name for `s` in
+  user-facing output.
 
 ## Motivation
 

@@ -1,0 +1,4 @@
+# reset("<out>", "bar")
+# check "foo"
+foo
+; check "❌"
