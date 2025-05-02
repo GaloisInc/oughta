@@ -1,6 +1,6 @@
 cabal-version: 3.0
 name: oughta
-version: 0.2.0.0
+version: 0.2.0.0.1
 author: Galois, Inc.
 maintainer: grease@galois.com
 copyright: Galois, Inc. 2025
@@ -158,7 +158,7 @@ test-suite oughta-tests
   hs-source-dirs: test
   main-is: Test.hs
   build-depends:
-    oughta >= 0.2.0.0,
+    oughta > 0.2.0.0,
   build-depends:
     bytestring,
     directory,
