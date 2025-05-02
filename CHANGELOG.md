@@ -2,6 +2,7 @@
 
 - Add hooks, `Lua` actions that run before or after Lua programs. To upgrade
   from v0.1, just add `defaultHooks` as the first argument to `check{,'}`.
+- Add the `reset` function to the Lua API.
 
 # [0.1.1.0] -- 2025-04-22
 

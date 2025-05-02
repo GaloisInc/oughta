@@ -86,6 +86,13 @@ match sm stateRef n =
           }
     pure (OR.updateProgress m p)
 
+-- | Implementation of @reset@. Not exported.
+reset :: IORef Progress -> String -> ByteString -> Lua.LuaE Exception ()
+reset stateRef name txt = do
+  setText txt
+  let p0 = OR.newProgress name txt
+  liftIO (IORef.writeIORef stateRef p0)
+
 -- | Implementation of @seek@. Not exported.
 seek :: IORef Progress -> Int -> Lua.LuaE Exception ()
 seek stateRef chars =
@@ -151,6 +158,9 @@ luaSetup hooks stateRef prog txt = do
 
   Lua.pushHaskellFunction (Lua.toHaskellFunction (match sm stateRef))
   Lua.setglobal (Lua.Name "match")
+
+  Lua.pushHaskellFunction (Lua.toHaskellFunction (reset stateRef))
+  Lua.setglobal (Lua.Name "reset")
 
   Lua.pushHaskellFunction (Lua.toHaskellFunction (seek stateRef))
   Lua.setglobal (Lua.Name "seek")
