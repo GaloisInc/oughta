@@ -17,6 +17,7 @@ import Data.Text.Encoding qualified as Text
 import Oughta.Exception (Exception)
 import Oughta.Exception qualified as OE
 import Oughta.Extract (LuaProgram, SourceMap, lookupSourceMap, programText, sourceMap, sourceMapFile)
+import Oughta.Hooks qualified as OH
 import Oughta.Lua qualified as OL
 import Oughta.Pos qualified as OP
 import Oughta.Result (Progress, Result)
@@ -123,13 +124,14 @@ srcLine sm level = do
 
 -- | Load user and Oughta Lua code. Helper, not exported.
 luaSetup ::
+  OH.Hooks ->
   IORef Progress ->
   -- | User code
   LuaProgram ->
   -- | Initial content of @text@ global
   ByteString ->
   Lua.LuaE Exception ()
-luaSetup stateRef prog txt = do
+luaSetup hooks stateRef prog txt = do
   Lua.openlibs
   setText txt
 
@@ -159,20 +161,25 @@ luaSetup stateRef prog txt = do
   _ <- Lua.loadbuffer OL.luaCode (Lua.Name "oughta.lua")
   Lua.call 0 0
 
+  Lua.changeErrorType (OH.preHook hooks)
+
   let nm = Lua.Name (Text.encodeUtf8 (sourceMapFile sm))
   _ <- Lua.loadbuffer (Text.encodeUtf8 (programText prog)) nm
   Lua.call 0 0
 
+  Lua.changeErrorType (OH.postHook hooks)
+
 -- | Check some text against a Lua program using the API.
 check ::
+  OH.Hooks ->
   LuaProgram ->
   -- | Text to check
   ByteString ->
   IO Result
-check prog txt = do
+check hooks prog txt = do
   let p0 = OR.newProgress "<out>" txt
   stateRef <- IORef.newIORef p0
-  result <- Lua.run (Lua.try (luaSetup stateRef prog txt))
+  result <- Lua.run (Lua.try (luaSetup hooks stateRef prog txt))
   case result of
     Left (OE.LuaException e) -> X.throwIO e
     Left (OE.Failure noMatch) ->
