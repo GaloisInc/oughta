@@ -197,6 +197,8 @@ Checking functions:
 
 - `check(s: String)`: Find `s` in `text`. Seek to after the end of `s`. Like
   LLVM FileCheck's `CHECK`, or [Expect's][expect] `expect`.
+- `check_not(s: String)`: Assert that `s` is *not* in `text`. Do not seek. Like
+  LLVM FileCheck's `CHECK-NOT`.
 - `checkln(s: String)`: `checkln(s)` is equivalent to `check(s .. "\n")`.
 - `here(s: String)`: Check that `text` beings with `s`. Seek to after the end
   of `s`.

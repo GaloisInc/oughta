@@ -1,0 +1,5 @@
+# check_not "fourth"
+first
+second
+third
+; match_on_line(1)
