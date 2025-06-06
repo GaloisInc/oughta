@@ -1,4 +1,6 @@
-# next
+# [0.3.0.0] -- 2025-07-06
+
+[0.3.0.0]: https://github.com/GaloisInc/oughta/releases/tag/v0.3.0.0
 
 - Add `check_not(s: String)`, which asserts that `s` is *not* in `text`.
 
