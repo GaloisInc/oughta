@@ -12,6 +12,19 @@ function check(needle)
   end
 end
 
+function check_not(needle)
+  if needle == "" then
+    match(0)
+    return
+  end
+  local start, _ = string.find(text, needle, 1, true)
+  if start == nil then
+    match(0)
+  else
+    fail()
+  end
+end
+
 function checkln(needle)
   check(needle .. "\n")
 end
@@ -28,4 +41,3 @@ end
 function hereln(needle)
   here(needle .. "\n")
 end
-

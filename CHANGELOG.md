@@ -1,5 +1,7 @@
 # next
 
+- Add `check_not(s: String)`, which asserts that `s` is *not* in `text`.
+
 # [0.2.0.0] -- 2025-05-02
 
 [0.2.0.0]: https://github.com/GaloisInc/oughta/releases/tag/v0.2.0.0
