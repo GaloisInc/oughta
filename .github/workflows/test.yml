@@ -61,7 +61,7 @@ jobs:
             echo 'packages: .' > cabal.project
             echo 'import: https://www.stackage.org/lts-21.25/cabal.config' >> cabal.project
       fail-fast: false
-    uses: GaloisInc/.github/.github/workflows/haskell-ci.yml@v1
+    uses: GaloisInc/.github/.github/workflows/haskell-ci.yml@v2
     with:
       cache-key-prefix: ${{ matrix.cache-key-prefix }}
       # See Note [Parallelism] in `haskell-ci.yml` for why `--ghc-options='-j'`
